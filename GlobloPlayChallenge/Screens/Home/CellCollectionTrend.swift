@@ -20,7 +20,7 @@ class CellCollectionTrend: UICollectionViewCell {
     }
 
     func prepareCell(with trend: TrendingItem) {
-        self.coverTrend.updateImage(with: trend)
+        self.coverTrend.prepareCell(with: trend)
     }
 
     private func addConstrains() {

@@ -14,10 +14,14 @@ class ViewController: UIViewController {
     lazy var collectionTrend: UICollectionView = {
         let collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: UICollectionViewLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .green
+        collectionView.backgroundColor = .black
         collectionView.register(CellCollectionTrend.self, forCellWithReuseIdentifier: CellCollectionTrend.indetifier)
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 5
+        layout.minimumInteritemSpacing = 5
+        layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+        //layout.itemSize = CGSize(width: card.frame.width, height: card.frame.height)
         collectionView.setCollectionViewLayout(layout, animated: true)
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -45,8 +49,8 @@ class ViewController: UIViewController {
 //                collectionview.backgroundColor = .white
 //                        self.view.addSubview(collectionview)
                 self.view.addSubview(collectionTrend)
-                view.backgroundColor = .cyan
-               // addConstrains()
+                view.backgroundColor = .black
+                addConstrains()
 
             } catch {
                 print(error)
@@ -57,17 +61,19 @@ class ViewController: UIViewController {
 
     private func addConstrains() {
         NSLayoutConstraint.activate([
-            self.collectionTrend.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
-            self.collectionTrend.centerYAnchor.constraint(equalTo: self.view.centerYAnchor)
+            self.collectionTrend.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 100),
+            self.collectionTrend.heightAnchor.constraint(equalToConstant: 300),
+            self.collectionTrend.leadingAnchor.constraint(equalTo: self.view.leadingAnchor,constant: 10),
+            self.collectionTrend.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
     }
 
-    func updateCover() {
-        card.updateImage(with: model.trending[0])
-    }
 }
 
 extension ViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate, UICollectionViewDataSource {
+        func numberOfSections(in collectionView: UICollectionView) -> Int {
+            1
+        }
 
         func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
             return model.trending.count
@@ -86,7 +92,7 @@ extension ViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDe
         }
 
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            return CGSize(width: 100, height: 100)
+            return CGSize(width: 200, height: 200)
         }
 
 
