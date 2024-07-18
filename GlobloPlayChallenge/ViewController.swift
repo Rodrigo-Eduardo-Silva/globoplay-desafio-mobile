@@ -10,12 +10,13 @@ import UIKit
 class ViewController: UIViewController {
     var model = TrendingService(network: Network())
     var card = CoverTrending()
+
     lazy var collectionTrend: UICollectionView = {
-        let collectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewLayout.init())
+        let collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: UICollectionViewLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .none
+        collectionView.backgroundColor = .green
         collectionView.register(CellCollectionTrend.self, forCellWithReuseIdentifier: CellCollectionTrend.indetifier)
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout.init()
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         collectionView.setCollectionViewLayout(layout, animated: true)
         collectionView.delegate = self
@@ -23,19 +24,35 @@ class ViewController: UIViewController {
         return collectionView
     }()
 
+    var collectionview: UICollectionView!
+
     override func viewDidLoad() {
         super.viewDidLoad()
+
         Task {
             do {
                 try await model.loadTrending()
                 print(model.trending.count)
+//                let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+//                        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//                        layout.itemSize = CGSize(width: view.frame.width, height: 700)
+//
+//                        collectionview = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
+//                        collectionview.dataSource = self
+//                        collectionview.delegate = self
+//                collectionview.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "id")
+//                        collectionview.showsVerticalScrollIndicator = false
+//                collectionview.backgroundColor = .white
+//                        self.view.addSubview(collectionview)
+                self.view.addSubview(collectionTrend)
+                view.backgroundColor = .cyan
+               // addConstrains()
 
             } catch {
                 print(error)
             }
         }
-        self.view.addSubview(self.collectionTrend)
-        addConstrains()
+
     }
 
     private func addConstrains() {
@@ -61,11 +78,15 @@ extension ViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDe
                 fatalError()
             }
             cell.prepareCell(with: model.trending[indexPath.row])
+//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "id", for: indexPath)
+//              let label = UILabel()
+//              label.text = model.trending[indexPath.row].title
+//              cell.backgroundView = label
             return cell
         }
 
         func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-            return CGSize(width: 200, height: 200)
+            return CGSize(width: 100, height: 100)
         }
 
 

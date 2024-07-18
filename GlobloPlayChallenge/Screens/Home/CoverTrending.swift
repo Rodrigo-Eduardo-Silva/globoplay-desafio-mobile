@@ -14,10 +14,17 @@ final class CoverTrending: UIView {
         return imageView
     }()
 
+    var label: UILabel = {
+       let label = UILabel()
+       label.textAlignment = .center
+       label.textColor = .blue
+       return label
+   }()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         addComponents()
-        addContrains()
+//        addContrains()
     }
 
     required init(coder: NSCoder) {
@@ -26,16 +33,20 @@ final class CoverTrending: UIView {
 
     private func addComponents() {
         self.addSubview(coverImage)
+        self.addSubview(label)
     }
 
     private func addContrains() {
         coverImage.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         coverImage.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        label.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        label.topAnchor.constraint(equalTo: coverImage.bottomAnchor, constant: 20).isActive = true
     }
 
     func updateImage(with trend: TrendingItem) {
         let url = URL(string: Server.imageURL + trend.poster_path)
         coverImage.kf.setImage(with: url)
+        label.text = trend.title
     }
 
 }
