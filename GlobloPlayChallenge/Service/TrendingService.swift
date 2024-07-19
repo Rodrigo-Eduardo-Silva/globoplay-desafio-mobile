@@ -4,6 +4,7 @@ import UIKit
 class TrendingService {
     let network: Network
     var trending:[TrendingItem] = []
+    var pageTrend: TrendingResult?
     init(network: Network) {
         self.network = network
     }
@@ -18,7 +19,6 @@ class TrendingService {
         
             let result = try await network.request(request: request, returning: TrendingResult.self)
             trending = result.results
-
     }
 
 }
