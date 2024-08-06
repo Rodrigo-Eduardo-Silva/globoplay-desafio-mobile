@@ -11,5 +11,5 @@ struct TrendingResult: Decodable {
 struct TrendingItem: Decodable, Identifiable {
     let id: Int
     let poster_path: String
-    let title: String
+    //let title: String
 }
