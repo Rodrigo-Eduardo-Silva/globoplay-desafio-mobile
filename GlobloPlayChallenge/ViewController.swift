@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     lazy var collectionTrend: UICollectionView = {
         let collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: UICollectionViewLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .red
+        collectionView.backgroundColor = .black
         collectionView.register(CellCollectionTrend.self, forCellWithReuseIdentifier: CellCollectionTrend.indetifier)
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -31,7 +31,7 @@ class ViewController: UIViewController {
     lazy var collectionTrendTv: UICollectionView = {
         let collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: UICollectionViewLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = .red
+        collectionView.backgroundColor = .black
         collectionView.register(CellCollectionTrend.self, forCellWithReuseIdentifier: CellCollectionTrend.indetifier)
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
@@ -114,18 +114,14 @@ extension ViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDe
             }
             cell.prepareCell(with: model.trending[indexPath.row])
 
-            if collectionView == collectionTrendTv {
-                guard let cell = collectionTrendTv.dequeueReusableCell(withReuseIdentifier: CellCollectionTrend.indetifier, for: indexPath) as? CellCollectionTrend else {
-                    fatalError()
+                if collectionView == collectionTrendTv {
+                    guard let cell = collectionTrendTv.dequeueReusableCell(withReuseIdentifier: CellCollectionTrend.indetifier, for: indexPath) as? CellCollectionTrend else {
+                        fatalError()
+                    }
+                    cell.coverTrend.prepareCellTv(with: model.trendingTv[indexPath.row])
+                    return cell
                 }
-                cell.prepareCell(with: model.trendingTv[indexPath.row])
-                return cell
-            }
 
-//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "id", for: indexPath)
-//              let label = UILabel()
-//              label.text = model.trending[indexPath.row].title
-//              cell.backgroundView = label
             return cell
         }
 

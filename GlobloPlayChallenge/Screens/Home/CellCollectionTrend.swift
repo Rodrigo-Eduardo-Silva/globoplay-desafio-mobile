@@ -19,7 +19,7 @@ class CellCollectionTrend: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func prepareCell(with trend: TrendingItem) {
+    func prepareCell(with trend: TrendingItemMovie) {
         self.coverTrend.prepareCell(with: trend)
     }
 

@@ -3,9 +3,9 @@ import UIKit
 
 class TrendingService {
     let network: Network
-    var trending:[TrendingItem] = []
-    var trendingTv:[TrendingItem] = []
-    var pageTrend: TrendingResult?
+    var trending:[TrendingItemMovie] = []
+    var trendingTv:[TrendingItemTv] = []
+    var pageTrend: TrendingResultMovie?
     init(network: Network) {
         self.network = network
     }
@@ -18,7 +18,7 @@ class TrendingService {
             .with(addHeaderName: "Content-Type", value: "Content-Type")
             .build()
         
-            let result = try await network.request(request: request, returning: TrendingResult.self)
+            let result = try await network.request(request: request, returning: TrendingResultMovie.self)
             trending = result.results
 
     }
@@ -31,7 +31,7 @@ class TrendingService {
             .with(addHeaderName: "Content-Type", value: "Content-Type")
             .build()
 
-            let result = try await network.request(request: request, returning: TrendingResult.self)
+            let result = try await network.request(request: request, returning: TrendingResultTv.self)
             trendingTv = result.results
     }
 

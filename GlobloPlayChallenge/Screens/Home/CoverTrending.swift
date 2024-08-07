@@ -24,7 +24,7 @@ final class CoverTrending: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         addComponents()
-        addContrains()
+        addConstrains()
     }
 
     required init(coder: NSCoder) {
@@ -35,12 +35,17 @@ final class CoverTrending: UIView {
         self.addSubview(coverImage)
     }
 
-    private func addContrains() {
+    private func addConstrains() {
         coverImage.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         coverImage.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
     }
 
-    func prepareCell(with trend: TrendingItem) {
+    func prepareCell(with trend: TrendingItemMovie) {
+        let url = URL(string: Server.imageURL + trend.poster_path)
+        coverImage.kf.setImage(with: url)
+    }
+
+    func prepareCellTv(with trend: TrendingItemTv) {
         let url = URL(string: Server.imageURL + trend.poster_path)
         coverImage.kf.setImage(with: url)
     }
