@@ -129,5 +129,14 @@ extension ViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDe
             return CGSize(width: 200, height: 200)
         }
 
+        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+            if collectionView == collectionTrend {
+                let trend = model.trending[indexPath.row]
+                let viewController = DetailViewController()
+                viewController.trend = trend
+                viewController.modalPresentationStyle = .formSheet
+                present(viewController,animated: true)
+            }
+        }
 
-    }
+}
