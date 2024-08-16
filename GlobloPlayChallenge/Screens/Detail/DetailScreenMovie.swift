@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import Kingfisher
 
-class DetailScreen: UIView {
+class DetailScreenMovie: UIView {
     lazy var detailImage: UIImageView = {
         let imageView = UIImageView()
         let image = UIImage(named: "rebel")
@@ -34,7 +34,6 @@ class DetailScreen: UIView {
     }()
 
     var trend: TrendingItemMovie?
-
     init(frame: CGRect = .zero, trend: TrendingItemMovie) {
         super.init(frame: frame)
         self.trend = trend
@@ -42,7 +41,7 @@ class DetailScreen: UIView {
         addConstrains()
         configureDetail(with: trend)
     }
-    
+
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -52,7 +51,7 @@ class DetailScreen: UIView {
         self.addSubview(titleLabel)
         self.addSubview(detailLabel)
     }
-    
+
     private func addConstrains() {
         detailImage.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         detailImage.topAnchor.constraint(equalTo: topAnchor, constant: 60).isActive = true
@@ -71,9 +70,6 @@ class DetailScreen: UIView {
         detailImage.kf.setImage(with: url)
         titleLabel.text = trend.title
         detailLabel.text = trend.overview
-
     }
-
-
 
 }

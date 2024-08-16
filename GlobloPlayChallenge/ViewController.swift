@@ -57,17 +57,6 @@ class ViewController: UIViewController {
                 try await model.loadTrendingTv()
                 print(model.trending.count)
                 print(model.trendingTv.count)
-//                let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-//                        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-//                        layout.itemSize = CGSize(width: view.frame.width, height: 700)
-//
-//                        collectionview = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
-//                        collectionview.dataSource = self
-//                        collectionview.delegate = self
-//                collectionview.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "id")
-//                        collectionview.showsVerticalScrollIndicator = false
-//                collectionview.backgroundColor = .white
-//                        self.view.addSubview(collectionview)
                 self.view.addSubview(collectionTrend)
                 self.view.addSubview(collectionTrendTv)
                 view.backgroundColor = .black
@@ -132,11 +121,16 @@ extension ViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDe
         func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
             if collectionView == collectionTrend {
                 let trend = model.trending[indexPath.row]
-                let viewController = DetailViewController()
-                viewController.trend = trend
+                let viewController = DetailViewMovieController(trend: trend)
+                viewController.modalPresentationStyle = .formSheet
+                present(viewController,animated: true)
+            }
+
+            if collectionView == collectionTrendTv {
+                let trend = model.trendingTv[indexPath.row]
+                let viewController = DetailViewTvViewController(trend: trend)
                 viewController.modalPresentationStyle = .formSheet
                 present(viewController,animated: true)
             }
         }
-
 }
